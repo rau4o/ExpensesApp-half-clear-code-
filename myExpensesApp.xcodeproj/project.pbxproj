@@ -3,27 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D8D20CB57A5BF859A4037CA /* Pods_myExpensesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E71A3325BEAC624E482281A /* Pods_myExpensesApp.framework */; };
 		AE5F1E79245AE9BE006CD07C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E78245AE9BE006CD07C /* AppDelegate.swift */; };
 		AE5F1E7B245AE9BE006CD07C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E7A245AE9BE006CD07C /* SceneDelegate.swift */; };
-		AE5F1E7D245AE9BE006CD07C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E7C245AE9BE006CD07C /* ViewController.swift */; };
 		AE5F1E80245AE9BE006CD07C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE5F1E7E245AE9BE006CD07C /* Main.storyboard */; };
 		AE5F1E82245AE9C0006CD07C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE5F1E81245AE9C0006CD07C /* Assets.xcassets */; };
 		AE5F1E85245AE9C0006CD07C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE5F1E83245AE9C0006CD07C /* LaunchScreen.storyboard */; };
+		AE5F1E90245AE9FB006CD07C /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E8F245AE9FB006CD07C /* MainController.swift */; };
+		AE5F1E96245AF055006CD07C /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E95245AF055006CD07C /* RealmService.swift */; };
+		AE5F1E99245AF23F006CD07C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E98245AF23F006CD07C /* UIView+Extension.swift */; };
+		AE5F1E9B245AFC63006CD07C /* HistoryTransactionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E9A245AFC63006CD07C /* HistoryTransactionViewCell.swift */; };
+		AE5F1E9D245AFD64006CD07C /* EntityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5F1E9C245AFD64006CD07C /* EntityModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		58013445AEB21BD8E4B6630A /* Pods-myExpensesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myExpensesApp.debug.xcconfig"; path = "Target Support Files/Pods-myExpensesApp/Pods-myExpensesApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5E71A3325BEAC624E482281A /* Pods_myExpensesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myExpensesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE5F1E75245AE9BE006CD07C /* myExpensesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myExpensesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE5F1E78245AE9BE006CD07C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE5F1E7A245AE9BE006CD07C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AE5F1E7C245AE9BE006CD07C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AE5F1E7F245AE9BE006CD07C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AE5F1E81245AE9C0006CD07C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE5F1E84245AE9C0006CD07C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE5F1E86245AE9C0006CD07C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE5F1E8F245AE9FB006CD07C /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		AE5F1E95245AF055006CD07C /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		AE5F1E98245AF23F006CD07C /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		AE5F1E9A245AFC63006CD07C /* HistoryTransactionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionViewCell.swift; sourceTree = "<group>"; };
+		AE5F1E9C245AFD64006CD07C /* EntityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityModel.swift; sourceTree = "<group>"; };
+		E4DB5677CEB065533C88886F /* Pods-myExpensesApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myExpensesApp.release.xcconfig"; path = "Target Support Files/Pods-myExpensesApp/Pods-myExpensesApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +43,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D8D20CB57A5BF859A4037CA /* Pods_myExpensesApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		215A754AAEA1264778645A3D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E71A3325BEAC624E482281A /* Pods_myExpensesApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AE5F1E6C245AE9BE006CD07C = {
 			isa = PBXGroup;
 			children = (
 				AE5F1E77245AE9BE006CD07C /* myExpensesApp */,
 				AE5F1E76245AE9BE006CD07C /* Products */,
+				E8D93BD405B24D41F5970883 /* Pods */,
+				215A754AAEA1264778645A3D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +79,100 @@
 		AE5F1E77245AE9BE006CD07C /* myExpensesApp */ = {
 			isa = PBXGroup;
 			children = (
+				AE5F1E8E245AE9DA006CD07C /* Model */,
+				AE5F1E8D245AE9D6006CD07C /* View */,
+				AE5F1E8C245AE9CB006CD07C /* Controller */,
+				AE5F1E93245AEA92006CD07C /* Realm Service */,
+				AE5F1E91245AEA77006CD07C /* Common */,
 				AE5F1E78245AE9BE006CD07C /* AppDelegate.swift */,
 				AE5F1E7A245AE9BE006CD07C /* SceneDelegate.swift */,
-				AE5F1E7C245AE9BE006CD07C /* ViewController.swift */,
-				AE5F1E7E245AE9BE006CD07C /* Main.storyboard */,
 				AE5F1E81245AE9C0006CD07C /* Assets.xcassets */,
-				AE5F1E83245AE9C0006CD07C /* LaunchScreen.storyboard */,
 				AE5F1E86245AE9C0006CD07C /* Info.plist */,
 			);
 			path = myExpensesApp;
+			sourceTree = "<group>";
+		};
+		AE5F1E8C245AE9CB006CD07C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E8F245AE9FB006CD07C /* MainController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AE5F1E8D245AE9D6006CD07C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E9A245AFC63006CD07C /* HistoryTransactionViewCell.swift */,
+				AE5F1E9F245B0BC2006CD07C /* HeaderViewCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AE5F1E8E245AE9DA006CD07C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E9C245AFD64006CD07C /* EntityModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AE5F1E91245AEA77006CD07C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E97245AF135006CD07C /* Protocols */,
+				AE5F1E92245AEA89006CD07C /* Extensions */,
+				AE5F1E94245AEAB4006CD07C /* Storyboard */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		AE5F1E92245AEA89006CD07C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E98245AF23F006CD07C /* UIView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AE5F1E93245AEA92006CD07C /* Realm Service */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E95245AF055006CD07C /* RealmService.swift */,
+			);
+			path = "Realm Service";
+			sourceTree = "<group>";
+		};
+		AE5F1E94245AEAB4006CD07C /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				AE5F1E7E245AE9BE006CD07C /* Main.storyboard */,
+				AE5F1E83245AE9C0006CD07C /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		AE5F1E97245AF135006CD07C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AE5F1E9F245B0BC2006CD07C /* HeaderViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HeaderViewCell;
+			sourceTree = "<group>";
+		};
+		E8D93BD405B24D41F5970883 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				58013445AEB21BD8E4B6630A /* Pods-myExpensesApp.debug.xcconfig */,
+				E4DB5677CEB065533C88886F /* Pods-myExpensesApp.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +182,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE5F1E89245AE9C0006CD07C /* Build configuration list for PBXNativeTarget "myExpensesApp" */;
 			buildPhases = (
+				E60E4AF1E542375D5950E7EC /* [CP] Check Pods Manifest.lock */,
 				AE5F1E71245AE9BE006CD07C /* Sources */,
 				AE5F1E72245AE9BE006CD07C /* Frameworks */,
 				AE5F1E73245AE9BE006CD07C /* Resources */,
+				168DF358CA2F1C739828EC7C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,14 +243,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		168DF358CA2F1C739828EC7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myExpensesApp/Pods-myExpensesApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-myExpensesApp/Pods-myExpensesApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-myExpensesApp/Pods-myExpensesApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E60E4AF1E542375D5950E7EC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-myExpensesApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AE5F1E71245AE9BE006CD07C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE5F1E7D245AE9BE006CD07C /* ViewController.swift in Sources */,
+				AE5F1E9D245AFD64006CD07C /* EntityModel.swift in Sources */,
+				AE5F1E90245AE9FB006CD07C /* MainController.swift in Sources */,
 				AE5F1E79245AE9BE006CD07C /* AppDelegate.swift in Sources */,
 				AE5F1E7B245AE9BE006CD07C /* SceneDelegate.swift in Sources */,
+				AE5F1E99245AF23F006CD07C /* UIView+Extension.swift in Sources */,
+				AE5F1E9B245AFC63006CD07C /* HistoryTransactionViewCell.swift in Sources */,
+				AE5F1E96245AF055006CD07C /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +438,7 @@
 		};
 		AE5F1E8A245AE9C0006CD07C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58013445AEB21BD8E4B6630A /* Pods-myExpensesApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +457,7 @@
 		};
 		AE5F1E8B245AE9C0006CD07C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4DB5677CEB065533C88886F /* Pods-myExpensesApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
