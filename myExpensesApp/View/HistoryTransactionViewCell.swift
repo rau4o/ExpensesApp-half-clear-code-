@@ -22,7 +22,7 @@ class HistoryTransactionViewCell: UITableViewCell {
     
     private let mainTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
@@ -34,7 +34,7 @@ class HistoryTransactionViewCell: UITableViewCell {
     
     private let cashLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .right
         return label
     }()
@@ -56,11 +56,11 @@ class HistoryTransactionViewCell: UITableViewCell {
         
         cardView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5)
         
-        mainTitleLabel.anchor(top: cardView.topAnchor, left: cardView.leftAnchor, bottom: nil, right: cardView.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, height: 50)
+        mainTitleLabel.anchor(top: cardView.topAnchor, left: cardView.leftAnchor, bottom: nil, right: cardView.rightAnchor, paddingTop: 10, paddingLeft: 11, paddingBottom: 0, paddingRight: 0, height: 20)
         
-        typeDescLabel.anchor(top: mainTitleLabel.bottomAnchor, left: mainTitleLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 30)
+        typeDescLabel.anchor(top: mainTitleLabel.bottomAnchor, left: mainTitleLabel.leftAnchor, bottom: cardView.bottomAnchor, right: nil, paddingTop: 11, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 100, height: 12)
         
-        cashLabel.anchor(top: mainTitleLabel.bottomAnchor, left: nil, bottom: cardView.bottomAnchor, right: cardView.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 10, paddingRight: 5, width: 100, height: nil)
+        cashLabel.anchor(top: mainTitleLabel.bottomAnchor, left: nil, bottom: cardView.bottomAnchor, right: cardView.rightAnchor, paddingTop: 11, paddingLeft: 0, paddingBottom: 10, paddingRight: 12, width: 100, height: nil)
     }
     
     func configureCell(entity: EntityModel) {

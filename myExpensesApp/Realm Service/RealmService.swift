@@ -14,7 +14,6 @@ class RealmService {
     private init() {}
     
     static let shared = RealmService()
-//    weak var delegate: update?
     
     var realm = try! Realm()
     
@@ -22,7 +21,6 @@ class RealmService {
         do {
             try realm.write {
                 realm.add(object)
-//                delegate?.updateTableView()
             }
         } catch {
             print(error.localizedDescription)
@@ -33,7 +31,6 @@ class RealmService {
         do {
             try realm.write {
                 realm.delete(object)
-//                delegate?.updateTableView()
             }
         } catch {
             print(error.localizedDescription)

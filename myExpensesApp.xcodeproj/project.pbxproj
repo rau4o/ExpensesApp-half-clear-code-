@@ -104,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				AE5F1E9A245AFC63006CD07C /* HistoryTransactionViewCell.swift */,
-				AE5F1E9F245B0BC2006CD07C /* HeaderViewCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,7 +119,6 @@
 		AE5F1E91245AEA77006CD07C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				AE5F1E97245AF135006CD07C /* Protocols */,
 				AE5F1E92245AEA89006CD07C /* Extensions */,
 				AE5F1E94245AEAB4006CD07C /* Storyboard */,
 			);
@@ -150,20 +148,6 @@
 				AE5F1E83245AE9C0006CD07C /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
-			sourceTree = "<group>";
-		};
-		AE5F1E97245AF135006CD07C /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		AE5F1E9F245B0BC2006CD07C /* HeaderViewCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HeaderViewCell;
 			sourceTree = "<group>";
 		};
 		E8D93BD405B24D41F5970883 /* Pods */ = {

@@ -12,7 +12,7 @@ import RealmSwift
 // MARK: - static properties
 
 private let cellId = "cellId"
-private let rowHeight: CGFloat = 100
+private let rowHeight: CGFloat = 80
 
 class MainController: UIViewController {
     
@@ -30,9 +30,7 @@ class MainController: UIViewController {
     private let balanceTextLabel: UILabel = {
         let label = UILabel()
         label.text = "Ваш баланс"
-        label.font = UIFont.boldSystemFont(ofSize: 35)
-        label.backgroundColor = .white
-        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 36)
         return label
     }()
     
@@ -40,33 +38,32 @@ class MainController: UIViewController {
         let label = UILabel()
         label.text = "0$"
         label.minimumScaleFactor = 0.8
-        label.numberOfLines = 1
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 40)
-        label.backgroundColor = .white
-        label.textColor = UIColor(red: 129/255, green: 208/255, blue: 250/255, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.1882352941, green: 0.5607843137, blue: 0.9058823529, alpha: 1)
         label.sizeToFit()
         return label
     }()
     
     private let revenueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .green
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor(red: 50/255, green: 143/255, blue: 87/255, alpha: 1)
         label.text = "+0$"
-        label.backgroundColor = .white
         return label
     }()
     
     private let expenseLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .red
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor(red: 231/255, green: 16/255, blue: 16/255, alpha: 1)
         label.text = "-0$"
-        label.backgroundColor = .white
         return label
     }()
     
     private let spendButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+        button.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 249/255, alpha: 0.86)
         button.setTitle("Потратить", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
@@ -76,7 +73,7 @@ class MainController: UIViewController {
     
     private let addButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = #colorLiteral(red: 0.1960784314, green: 0.7725490196, blue: 1, alpha: 1)
+        button.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 249/255, alpha: 0.86)
         button.setTitle("Попольнить", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
@@ -86,13 +83,37 @@ class MainController: UIViewController {
     
     private let inputTextField: UITextField = {
         let text = UITextField()
-        text.placeholder = "Введите сумму "
-        text.backgroundColor = .white
+        text.placeholder = "Введите сумму"
         text.addShadow()
-        text.textColor = .black
+        text.keyboardType = .numberPad
         text.textAlignment = .center
         text.font = UIFont.boldSystemFont(ofSize: 30)
         return text
+    }()
+    
+    private let editButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Ред.", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.setTitleColor(#colorLiteral(red: 0.1882352941, green: 0.5607843137, blue: 0.9058823529, alpha: 1), for: .normal)
+        return button
+    }()
+    
+    private let allButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("All", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(#colorLiteral(red: 0.1882352941, green: 0.5607843137, blue: 0.9058823529, alpha: 1), for: .normal)
+        return button
+    }()
+    
+    private let historyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("История пополнений", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(#colorLiteral(red: 0.5254901961, green: 0.5254901961, blue: 0.5254901961, alpha: 1), for: .normal)
+        return button
     }()
     
     // MARK: - Lifecycle
@@ -103,12 +124,7 @@ class MainController: UIViewController {
         layoutUI()
         configureTableView()
         getEntities()
-        if (cashDefault.value(forKey: "cashDefault") != nil){
-        mainCash = cashDefault.value(forKey: "cashDefault")! as! Int
-        cashTextLabel.text = NSString(format: "", mainCash) as String
-        } else {
-            cashTextLabel.text = "\(mainCash) $"
-        }
+        checkMainCash()
         checkRevenue()
         checkExpense()
     }
@@ -119,7 +135,6 @@ class MainController: UIViewController {
         revenueLabel.text = "+\(revenueCash)$"
         expenseLabel.text = "-\(expenseCash)$"
     }
-    
     
     // MARK: - Helper function
     
@@ -141,42 +156,59 @@ class MainController: UIViewController {
         }
     }
     
+    private func checkMainCash() {
+        if (cashDefault.value(forKey: "cashDefault") != nil){
+        mainCash = cashDefault.value(forKey: "cashDefault")! as! Int
+        cashTextLabel.text = NSString(format: "", mainCash) as String
+        } else {
+            cashTextLabel.text = "\(mainCash) $"
+        }
+    }
+    
     private func configureTableView() {
         tableView.register(HistoryTransactionViewCell.self, forCellReuseIdentifier: cellId)
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
-        
-        view.addSubview(tableView)
-        
-        tableView.anchor(top: cashTextLabel.bottomAnchor, left: view.leftAnchor, bottom: inputTextField.topAnchor, right: view.rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5)
     }
     
     private func layoutUI() {
-        
         let stackView = UIStackView(arrangedSubviews: [spendButton,addButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
-        addSubviews([balanceTextLabel,cashTextLabel,revenueLabel,expenseLabel,inputTextField,stackView])
+        addSubviews([balanceTextLabel,cashTextLabel,revenueLabel,expenseLabel,tableView,inputTextField,stackView,editButton,historyButton,allButton])
         
-        balanceTextLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: 90)
+        balanceTextLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 52, paddingLeft: 25, paddingBottom: 0, paddingRight: 0, width: 204, height: 43)
         
-        cashTextLabel.anchor(top: balanceTextLabel.bottomAnchor, left: balanceTextLabel.leftAnchor, bottom: nil, right: nil, paddingTop: -20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 150, height: 70)
+        editButton.anchor(top: balanceTextLabel.topAnchor, left: nil, bottom: balanceTextLabel.bottomAnchor, right: view.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 12, paddingRight: 27, width: 40, height: 19)
         
-        revenueLabel.anchor(top: cashTextLabel.topAnchor, left: cashTextLabel.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 5, paddingBottom: -10, paddingRight: 0, width: 100, height: 50)
+        cashTextLabel.anchor(top: balanceTextLabel.bottomAnchor, left: balanceTextLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 130, height: 44)
         
-        expenseLabel.anchor(top: revenueLabel.bottomAnchor, left: cashTextLabel.rightAnchor, bottom: cashTextLabel.bottomAnchor, right: nil, paddingTop: -10, paddingLeft: 5, paddingBottom: 0, paddingRight: 0, width: 100, height: 50)
+        revenueLabel.anchor(top: cashTextLabel.topAnchor, left: cashTextLabel.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
+        
+        expenseLabel.anchor(top: revenueLabel.bottomAnchor, left: cashTextLabel.rightAnchor, bottom: cashTextLabel.bottomAnchor, right: nil, paddingTop: 1, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
+        
+        historyButton.anchor(top: cashTextLabel.bottomAnchor, left: cashTextLabel.leftAnchor, bottom: tableView.topAnchor, right: nil, paddingTop: 37, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 159, height: 21)
+        
+        allButton.anchor(top: historyButton.topAnchor, left: nil, bottom: historyButton.bottomAnchor, right: editButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 40, height: 18)
+        
+        tableView.anchor(top: historyButton.bottomAnchor, left: view.leftAnchor, bottom: inputTextField.topAnchor, right: view.rightAnchor, paddingTop: 37, paddingLeft: 23, paddingBottom: 10, paddingRight: 23)
         
         inputTextField.anchor(top: nil, left: view.leftAnchor, bottom: stackView.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 20, paddingRight: 20, width: 0, height: 100)
         
         stackView.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 60)
+        
     }
     
     private func getEntities() {
-        entitesArray = RealmService.shared.realm.objects(EntityModel.self)
+        DispatchQueue.main.async { [weak self] in
+            self?.entitesArray = RealmService.shared.realm.objects(EntityModel.self)
+            self?.tableView.reloadData()
+        }
     }
     
     // MARK: - Selectors @objc
@@ -219,7 +251,7 @@ class MainController: UIViewController {
         revenueCash += secondMove
         
         cashTextLabel.text = "\(entity.mainCash) $"
-        revenueLabel.text = "+\(revenueCash)"
+        revenueLabel.text = "+\(revenueCash)$"
         
         cashDefault.setValue(entity.mainCash, forKey: "cashDefault")
         cashDefault.synchronize()
@@ -246,12 +278,8 @@ class MainController: UIViewController {
 
 extension MainController: UITableViewDelegate, UITableViewDataSource {
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        <#code#>
-//    }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "История пополнений"
+        return "12.03.2020"
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -270,6 +298,7 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? HistoryTransactionViewCell {
+            cell.selectionStyle = .none
             if let entity = entitesArray?[indexPath.row] {
                 cell.configureCell(entity: entity)
             }
