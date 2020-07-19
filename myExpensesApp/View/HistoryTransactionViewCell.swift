@@ -26,9 +26,9 @@ class HistoryTransactionViewCell: UITableViewCell {
         return label
     }()
     
-    private let typeDescLabel: UILabel = {
+    let typeDescLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray
+        label.textColor = UIColor(red: 50/255, green: 143/255, blue: 87/255, alpha: 1)
         return label
     }()
     
@@ -50,9 +50,9 @@ class HistoryTransactionViewCell: UITableViewCell {
     
     private func layoutUI() {
         addSubview(cardView)
-        cardView.addSubview(mainTitleLabel)
-        cardView.addSubview(typeDescLabel)
-        cardView.addSubview(cashLabel)
+        [mainTitleLabel, typeDescLabel, cashLabel].forEach {
+            cardView.addSubview($0)
+        }
         
         cardView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5)
         
@@ -63,10 +63,12 @@ class HistoryTransactionViewCell: UITableViewCell {
         cashLabel.anchor(top: mainTitleLabel.bottomAnchor, left: nil, bottom: cardView.bottomAnchor, right: cardView.rightAnchor, paddingTop: 11, paddingLeft: 0, paddingBottom: 10, paddingRight: 12, width: 100, height: nil)
     }
     
-    func configureCell(entity: EntityModel) {
-        mainTitleLabel.text = entity.name
-        cashLabel.text = entity.cash
-        typeDescLabel.text = entity.type
+    func configureCell(with entity: EntityModel) {
+        DispatchQueue.main.async {
+            self.mainTitleLabel.text = entity.name
+            self.cashLabel.text = entity.cash
+            self.typeDescLabel.text = entity.type
+        }
     }
     
     // MARK: required init
@@ -74,16 +76,4 @@ class HistoryTransactionViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

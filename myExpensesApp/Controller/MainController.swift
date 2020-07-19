@@ -25,7 +25,18 @@ class MainController: UIViewController {
     var entity = EntityModel()
     let cashDefault = UserDefaults.standard
     
-    private let tableView = UITableView()
+    // MARK: - UI Elements
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(HistoryTransactionViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
+    }()
     
     private let balanceTextLabel: UILabel = {
         let label = UILabel()
@@ -61,7 +72,7 @@ class MainController: UIViewController {
         return label
     }()
     
-    private let spendButton: UIButton = {
+    private lazy var spendButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 249/255, alpha: 0.86)
         button.setTitle("Потратить", for: .normal)
@@ -71,7 +82,7 @@ class MainController: UIViewController {
         return button
     }()
     
-    private let addButton: UIButton = {
+    private lazy var addButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 27/255, green: 129/255, blue: 249/255, alpha: 0.86)
         button.setTitle("Попольнить", for: .normal)
@@ -87,6 +98,7 @@ class MainController: UIViewController {
         text.addShadow()
         text.keyboardType = .numberPad
         text.textAlignment = .center
+        text.placeholder = "0"
         text.font = UIFont.boldSystemFont(ofSize: 30)
         return text
     }()
@@ -116,13 +128,20 @@ class MainController: UIViewController {
         return button
     }()
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [spendButton,addButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
+    }()
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        layoutUI()
-        configureTableView()
+        initialSetup()
         getEntities()
         checkMainCash()
         checkRevenue()
@@ -165,53 +184,14 @@ class MainController: UIViewController {
         }
     }
     
-    private func configureTableView() {
-        tableView.register(HistoryTransactionViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.backgroundColor = .white
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
-    private func layoutUI() {
-        let stackView = UIStackView(arrangedSubviews: [spendButton,addButton])
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        
-        addSubviews([balanceTextLabel,cashTextLabel,revenueLabel,expenseLabel,tableView,inputTextField,stackView,editButton,historyButton,allButton])
-        
-        balanceTextLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 52, paddingLeft: 25, paddingBottom: 0, paddingRight: 0, width: 204, height: 43)
-        
-        editButton.anchor(top: balanceTextLabel.topAnchor, left: nil, bottom: balanceTextLabel.bottomAnchor, right: view.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 12, paddingRight: 27, width: 40, height: 19)
-        
-        cashTextLabel.anchor(top: balanceTextLabel.bottomAnchor, left: balanceTextLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 130, height: 44)
-        
-        revenueLabel.anchor(top: cashTextLabel.topAnchor, left: cashTextLabel.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
-        
-        expenseLabel.anchor(top: revenueLabel.bottomAnchor, left: cashTextLabel.rightAnchor, bottom: cashTextLabel.bottomAnchor, right: nil, paddingTop: 1, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
-        
-        historyButton.anchor(top: cashTextLabel.bottomAnchor, left: cashTextLabel.leftAnchor, bottom: tableView.topAnchor, right: nil, paddingTop: 37, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 159, height: 21)
-        
-        allButton.anchor(top: historyButton.topAnchor, left: nil, bottom: historyButton.bottomAnchor, right: editButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 40, height: 18)
-        
-        tableView.anchor(top: historyButton.bottomAnchor, left: view.leftAnchor, bottom: inputTextField.topAnchor, right: view.rightAnchor, paddingTop: 37, paddingLeft: 23, paddingBottom: 10, paddingRight: 23)
-        
-        inputTextField.anchor(top: nil, left: view.leftAnchor, bottom: stackView.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 20, paddingRight: 20, width: 0, height: 100)
-        
-        stackView.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 60)
-        
-    }
-    
     private func getEntities() {
-        DispatchQueue.main.async { [weak self] in
-            self?.entitesArray = RealmService.shared.realm.objects(EntityModel.self)
-            self?.tableView.reloadData()
+        self.entitesArray = RealmService.shared.realm.objects(EntityModel.self)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
-    // MARK: - Selectors @objc
+    // MARK: - Selectors
     
     @objc private func handleSpendButtonPressed(_ sender: UIButton) {
         let inputText = "\(inputTextField.text ?? "")$"
@@ -300,28 +280,50 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? HistoryTransactionViewCell {
             cell.selectionStyle = .none
             if let entity = entitesArray?[indexPath.row] {
-                cell.configureCell(entity: entity)
+                cell.configureCell(with: entity)
+                if entity.type == "Пополнение"  {
+                    cell.typeDescLabel.textColor = UIColor(red: 50/255, green: 143/255, blue: 87/255, alpha: 1)
+                } else if entity.type == "Снятие" {
+                    cell.typeDescLabel.textColor = UIColor(red: 231/255, green: 16/255, blue: 16/255, alpha: 1)
+                }
             }
             return cell
         }
         return UITableViewCell()
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else { return }
-        guard let pickUpLine = entitesArray?[indexPath.row] else {return}
-        
-        RealmService.shared.delete(pickUpLine)
-        tableView.reloadData()
-    }
 }
 
-// MARK: - Custom function
+// MARK: - SetupUI
 
-extension MainController {
-    func addSubviews(_ views: [UIView]) {
-        for i in views {
-            view.addSubview(i)
+private extension MainController {
+    func initialSetup() {
+        layoutUI()
+    }
+    
+    private func layoutUI() {
+        
+        [balanceTextLabel, cashTextLabel, revenueLabel, expenseLabel, tableView, inputTextField, stackView, editButton, historyButton, allButton].forEach {
+            view.addSubview($0)
         }
+        
+        balanceTextLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 52, paddingLeft: 25, paddingBottom: 0, paddingRight: 0, width: 204, height: 43)
+        
+        editButton.anchor(top: balanceTextLabel.topAnchor, left: nil, bottom: balanceTextLabel.bottomAnchor, right: view.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 12, paddingRight: 27, width: 40, height: 19)
+        
+        cashTextLabel.anchor(top: balanceTextLabel.bottomAnchor, left: balanceTextLabel.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 130, height: 44)
+        
+        revenueLabel.anchor(top: cashTextLabel.topAnchor, left: cashTextLabel.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
+        
+        expenseLabel.anchor(top: revenueLabel.bottomAnchor, left: cashTextLabel.rightAnchor, bottom: cashTextLabel.bottomAnchor, right: nil, paddingTop: 1, paddingLeft: 6, paddingBottom: 0, paddingRight: 0, width: 60, height: 17)
+        
+        historyButton.anchor(top: cashTextLabel.bottomAnchor, left: cashTextLabel.leftAnchor, bottom: tableView.topAnchor, right: nil, paddingTop: 37, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 159, height: 21)
+        
+        allButton.anchor(top: historyButton.topAnchor, left: nil, bottom: historyButton.bottomAnchor, right: editButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 40, height: 18)
+        
+        tableView.anchor(top: historyButton.bottomAnchor, left: view.leftAnchor, bottom: inputTextField.topAnchor, right: view.rightAnchor, paddingTop: 37, paddingLeft: 23, paddingBottom: 10, paddingRight: 23)
+        
+        inputTextField.anchor(top: nil, left: view.leftAnchor, bottom: stackView.topAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 20, paddingRight: 20, width: 0, height: 100)
+        
+        stackView.anchor(top: nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 60)
     }
 }
